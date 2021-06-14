@@ -1,3 +1,3 @@
 # CryptoConvert
 
-Un convertisseur euro/dollar en cryptomonnaies !
+Un convertisseur euro/dollar en cryptomonnaies

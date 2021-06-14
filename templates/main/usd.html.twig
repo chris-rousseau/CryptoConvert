@@ -4,31 +4,55 @@
 {% endblock %}
 
 {% block body %}
-
-	<div class="container mt-2">
-		<form class="row g-3" method="post">
-			<div class="col-auto">
-				<label for="staticEmail2" class="visually-hidden">Convertir</label>
-				<input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Convertir en Bitcoin">
+	<main>
+		<header>
+			<div class="img-logo">
+				<img src="{{ asset('./assets/images/crypto.png') }}" alt="Name of the website" class="text-logo">
+				<img src="./assets/images/logo.png" alt="Logo of the website" class="logo">
 			</div>
-			<div class="col-auto">
-				<label for="inputPassword2" class="visually-hidden">Montant</label>
-				<input type="text" name="devise" class="form-control" id="inputConvert" placeholder="Montant en dollar">
+			<div class="devise-header">
+				<a href="{{ path('form_usd') }}" class="devise--dollar selected">$</a>
+				<a href="{{ path('form_eur') }}" class="devise--euro">€</a>
 			</div>
-			<div class="col-auto">
-				<button type="submit" class="btn btn-primary mb-3">Convertir !</button>
-			</div>
-		</form>
+		</header>
+		<div class="convert">
+			<form action="" method="post">
+				<div class="form-convert">
+					<label for="amount" class="visually-hidden">Amount:
+					</label>
+					<input type="text" name="devise" id="amount" required>
+				</div>
+				<div class="form-convert">
+					<p>in
+					</p>
+				</div>
+				<div class="form-convert">
+					<label for="pet-select" class="visually-hidden">Crypto:
+					</label>
+					<select name="crypto" id="crypto-select">
+						<option value="BTCUSDT">Bitcoin</option>
+						<option value="ETHUSDT">Ethereum</option>
+						<option value="XRPUSDT">XRP</option>
+						<option value="ADAUSDT">Cardano</option>
+						<option value="DOGEUSDT">Dogecoin</option>
+						<option value="BNBUSDT">Binance Coin</option>
+					</select>
+				</div>
+				<div class="form-convert">
+					<input type="submit" value="Convert me please!">
+				</div>
+			</form>
+		</div>
 		{% if app.request.attributes.get('_route') == 'post_usd' %}
-			<div>
+			<div class="amount-convert">
 				<p>
-					{{ amountUSD }}$
-																					=
-					{{ amountBTC }}
-					BTC
+					<span class="result">{{ amountUSD }}$</span>
+					=
+					<span class="result">{{ amountCrypto }}
+						{{ crypto }}</span>
 				</p>
 			</div>
 		{% endif %}
-	</div>
+	</main>
 
 {% endblock %}

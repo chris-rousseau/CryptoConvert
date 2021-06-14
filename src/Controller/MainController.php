@@ -30,25 +30,28 @@ class MainController extends AbstractController
     /**
      * @Route("/eur", name="post_eur", methods={"POST"})
      */
-    public function postConvertEur(): Response
+    public function postConvertEur(Request $request): Response
     {
         // Connect API with API & secret keys
         require __DIR__ . '../../../config/apiKeys.php';
         $api = new Binance\API($apiK, $secretK);
 
         // Replace ',' to '.' & convert var to float
-        $amount = str_replace(',', '.', $_POST['devise']);
+        $amount = str_replace(',', '.', $request->get('devise'));
         $amountEUR = floatval(filter_var($amount, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION));
 
-        $oneBTC = $api->price("BTCEUR");
-        $oneEURinBTC = 1 / floatval($oneBTC);
+        $oneCrypto = $api->price($request->get('crypto'));
+        $oneEURinCrypto = 1 / floatval($oneCrypto);
 
-        // On converti le nombre de l'user en BTC
-        $amountBTC = number_format($amountEUR * $oneEURinBTC, 6);
+        $crypto = str_replace('EUR', '', $request->get('crypto'));
+
+        // On converti le nombre de l'user en Crypto
+        $amountCrypto = number_format($amountEUR * $oneEURinCrypto, 6);
 
         return $this->render('main/eur.html.twig', [
-            'amountBTC' => $amountBTC,
-            'amountEUR' => $amountEUR
+            'amountCrypto' => $amountCrypto,
+            'amountEUR' => $amountEUR,
+            'crypto' => $crypto
         ]);
     }
 
@@ -63,25 +66,28 @@ class MainController extends AbstractController
     /**
      * @Route("/usd", name="post_usd", methods={"POST"})
      */
-    public function postConvertUsd(): Response
+    public function postConvertUsd(Request $request): Response
     {
         // Connect API with API & secret keys
         require __DIR__ . '../../../config/apiKeys.php';
         $api = new Binance\API($apiK, $secretK);
 
         // Replace ',' to '.' & convert var to float
-        $amount = str_replace(',', '.', $_POST['devise']);
+        $amount = str_replace(',', '.', $request->get('devise'));
         $amountUSD = floatval(filter_var($amount, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION));
 
-        $oneBTC = $api->price("BTCUSDT");
-        $oneUSDinBTC = 1 / floatval($oneBTC);
+        $oneCrypto = $api->price($request->get('crypto'));
+        $oneUSDinCrypto = 1 / floatval($oneCrypto);
 
-        // On converti le nombre de l'user en BTC
-        $amountBTC = number_format($amountUSD * $oneUSDinBTC, 6);
+        $crypto = str_replace('USDT', '', $request->get('crypto'));
+
+        // On converti le nombre de l'user en Crypto
+        $amountCrypto = number_format($amountUSD * $oneUSDinCrypto, 6);
 
         return $this->render('main/usd.html.twig', [
-            'amountBTC' => $amountBTC,
-            'amountUSD' => $amountUSD
+            'amountCrypto' => $amountCrypto,
+            'amountUSD' => $amountUSD,
+            'crypto' => $crypto
         ]);
     }
 }
