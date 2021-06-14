@@ -4,15 +4,14 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Convert € / $ to cryptocurrencies">
 		<title>
 			{% block title %}Convert'Crypto
 			{% endblock %}
 		</title>
-		{# Run `composer require symfony/webpack-encore-bundle`
-																           and uncomment the following Encore helpers to start using Symfony UX #}
 		{% block stylesheets %}
-			<link rel="stylesheet" href="./assets/css/reset.css">
-			<link rel="stylesheet" href="./assets/css/style.css">
+			<link rel="stylesheet" href="{{ asset('./assets/css/reset.css') }}">
+			<link rel="stylesheet" href="{{ asset('./assets/css/style.css') }}">
 			<link rel="preconnect" href="https://fonts.gstatic.com">
 			<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 		{% endblock %}

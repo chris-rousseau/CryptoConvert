@@ -22,35 +22,43 @@ class MainController extends AbstractController
     /**
      * @Route("/eur", name="form_eur", methods={"GET"})
      */
-    public function formConvertEur(): Response
+    public function formEur(): Response
     {
         return $this->render('main/eur.html.twig', []);
     }
 
     /**
-     * @Route("/eur", name="post_eur", methods={"POST"})
+     * @Route("/eur", name="convert_eur", methods={"POST"})
      */
-    public function postConvertEur(Request $request): Response
+    public function convertEur(Request $request): Response
     {
-        // Connect API with API & secret keys
+        // Connection à l'API avec l'API & secret keys
         require __DIR__ . '../../../config/apiKeys.php';
         $api = new Binance\API($apiK, $secretK);
 
-        // Replace ',' to '.' & convert var to float
+        // On remplace les virgules par des points & on converti la variable en float (optionnel)
         $amount = str_replace(',', '.', $request->get('devise'));
         $amountEUR = floatval(filter_var($amount, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION));
 
+        // On récupère la valeur d'une crypto en euro et on calcule la valeur d'un euro en crypto
         $oneCrypto = $api->price($request->get('crypto'));
         $oneEURinCrypto = 1 / floatval($oneCrypto);
 
-        $crypto = str_replace('EUR', '', $request->get('crypto'));
-
         // On converti le nombre de l'user en Crypto
-        $amountCrypto = number_format($amountEUR * $oneEURinCrypto, 6);
+        $amountCrypto = $amountEUR * $oneEURinCrypto;
+
+        if ($amountCrypto < 1) {
+            $amountCrypto = number_format($amountCrypto, 6);
+        } else if ($amountCrypto >= 1) {
+            $amountCrypto = number_format($amountCrypto, 2, '.', ' ');
+        }
+
+        // On récupère le nom et on le traite pour ne garder que le nom raccourci de la crypto (affichage après le résultat)
+        $crypto = str_replace('EUR', '', $request->get('crypto'));
 
         return $this->render('main/eur.html.twig', [
             'amountCrypto' => $amountCrypto,
-            'amountEUR' => $amountEUR,
+            'amountEUR' => number_format($amountEUR, 1, '.', ' '),
             'crypto' => $crypto
         ]);
     }
@@ -58,35 +66,38 @@ class MainController extends AbstractController
     /**
      * @Route("/usd", name="form_usd", methods={"GET"})
      */
-    public function formConvertUsd(): Response
+    public function formUsd(): Response
     {
         return $this->render('main/usd.html.twig', []);
     }
 
     /**
-     * @Route("/usd", name="post_usd", methods={"POST"})
+     * @Route("/usd", name="convert_usd", methods={"POST"})
      */
-    public function postConvertUsd(Request $request): Response
+    public function convertUsd(Request $request): Response
     {
-        // Connect API with API & secret keys
         require __DIR__ . '../../../config/apiKeys.php';
         $api = new Binance\API($apiK, $secretK);
 
-        // Replace ',' to '.' & convert var to float
         $amount = str_replace(',', '.', $request->get('devise'));
         $amountUSD = floatval(filter_var($amount, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION));
 
         $oneCrypto = $api->price($request->get('crypto'));
         $oneUSDinCrypto = 1 / floatval($oneCrypto);
 
-        $crypto = str_replace('USDT', '', $request->get('crypto'));
+        $amountCrypto = $amountUSD * $oneUSDinCrypto;
 
-        // On converti le nombre de l'user en Crypto
-        $amountCrypto = number_format($amountUSD * $oneUSDinCrypto, 6);
+        if ($amountCrypto < 1) {
+            $amountCrypto = number_format($amountCrypto, 6);
+        } else if ($amountCrypto >= 1) {
+            $amountCrypto = number_format($amountCrypto, 2, '.', ' ');
+        }
+
+        $crypto = str_replace('USDT', '', $request->get('crypto'));
 
         return $this->render('main/usd.html.twig', [
             'amountCrypto' => $amountCrypto,
-            'amountUSD' => $amountUSD,
+            'amountUSD' => number_format($amountUSD, 1, '.', ' '),
             'crypto' => $crypto
         ]);
     }

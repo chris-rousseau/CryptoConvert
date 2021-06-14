@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Convert'Crypto
+{% block title %}Convert'Crypto - $
 {% endblock %}
 
 {% block body %}
@@ -8,7 +8,7 @@
 		<header>
 			<div class="img-logo">
 				<img src="{{ asset('./assets/images/crypto.png') }}" alt="Name of the website" class="text-logo">
-				<img src="./assets/images/logo.png" alt="Logo of the website" class="logo">
+				<img src="{{ asset('./assets/images/logo.png') }}" alt="Logo of the website" class="logo">
 			</div>
 			<div class="devise-header">
 				<a href="{{ path('form_usd') }}" class="devise--dollar selected">$</a>
@@ -20,7 +20,7 @@
 				<div class="form-convert">
 					<label for="amount" class="visually-hidden">Amount:
 					</label>
-					<input type="text" name="devise" id="amount" required>
+					<input type="text" name="devise" id="amount" placeholder="Amount in $..." required>
 				</div>
 				<div class="form-convert">
 					<p>in
@@ -43,7 +43,7 @@
 				</div>
 			</form>
 		</div>
-		{% if app.request.attributes.get('_route') == 'post_usd' %}
+		{% if app.request.attributes.get('_route') == 'convert_usd' %}
 			<div class="amount-convert">
 				<p>
 					<span class="result">{{ amountUSD }}$</span>
