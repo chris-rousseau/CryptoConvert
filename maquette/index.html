@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+		<link rel="stylesheet" href="./assets/css/reset.css">
+		<link rel="stylesheet" href="./assets/css/style.css">
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<div id="container">
+			<main>
+				<header>
+					<div class="img-logo">
+						<img src="./assets/images/crypto.png" alt="Name of the website" class="text-logo">
+						<img src="./assets/images/logo.png" alt="Logo of the website" class="logo">
+					</div>
+					<div class="devise-header">
+						<a href="#" class="devise--dollar selected">$</a>
+						<a href="#" class="devise--euro">€</a>
+					</div>
+				</header>
+				<div class="convert">
+					<form action="" method="post">
+						<div class="form-convert">
+							<label for="amount" class="visually-hidden">Amount:
+							</label>
+							<input type="text" name="amount" id="amount" required>
+						</div>
+						<div class="form-convert">
+							<p>in
+							</p>
+						</div>
+						<div class="form-convert">
+							<label for="pet-select" class="visually-hidden">Crypto:
+							</label>
+							<select name="crypto" id="crypto-select">
+								<option value="BTCUSDT">Bitcoin</option>
+								<option value="ETHUSDT">Ethereum</option>
+								<option value="XRPUSDT">XRP</option>
+								<option value="ADAUSDT">Cardano</option>
+								<option value="DOGEUSDT">Dogecoin</option>
+								<option value="BNBUSDT">Binance Coin</option>
+							</select>
+						</div>
+						<div class="form-convert">
+							<input type="submit" value="Convert me please!">
+						</div>
+					</form>
+				</div>
+				<div class="amount-convert">
+					<p>
+						<span class="result">22000$</span>
+						=
+						<span class="result">0.568431 BTC</span>
+					</p>
+				</div>
+			</main>
+			<footer>
+				<p>
+					<strong>CRYPTO</strong>CONVERT, use
+					<a href="https://www.binance.com/fr/register?ref=101193593" target="_blank">Binance</a>
+					API. By
+					<a href="http://chrisdev.fr/">Chris</a>
+				</p>
+			</footer>
+		</div>
+	</body>
+</html>

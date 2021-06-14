@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#">Convert'Crypto</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			<div class="navbar-nav">
+				{% if app.request.attributes.get('_route') == 'post_eur' or app.request.attributes.get('_route') == 'form_eur' %}
+					<a class="nav-link active" aria-current="page" href="{{ path('post_usd') }}">Devise : $</a>
+				{% endif %}
+
+				{% if app.request.attributes.get('_route') == 'post_usd' or app.request.attributes.get('_route') == 'form_usd' %}
+					<a class="nav-link active" aria-current="page" href="{{ path('post_eur') }}">Devise : €</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</nav>
